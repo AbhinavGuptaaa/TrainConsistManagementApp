@@ -1,59 +1,50 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.LinkedList;
-import java.util.LinkedHashSet;
+import java.util.*;
 
 public class TrainConsistManagementApp {
 
-    // UC1 + UC2
     static List<String> bogies = new ArrayList<>();
-
-    // UC3
     static Set<String> bogieIds = new HashSet<>();
-
-    // UC4
     static LinkedList<String> trainConsist = new LinkedList<>();
-
-    // UC5
     static LinkedHashSet<String> trainFormation = new LinkedHashSet<>();
+    static HashMap<String, Integer> bogieCapacityMap = new HashMap<>();
 
     public static void main(String[] args) {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // ---------------- UC1 ----------------
+        // UC1
         displaySummary();
 
-        // ---------------- UC2 ----------------
+        // UC2
         addBogies();
         displayBogies();
-
         removeBogie("AC Chair");
         checkBogie("Sleeper");
-
         displayBogies();
 
-        // ---------------- UC3 ----------------
+        // UC3
         addBogieIds();
         displayBogieIds();
 
-        // ---------------- UC4 ----------------
+        // UC4
         manageTrainConsist();
         displayTrainConsist();
 
-        // ---------------- UC5 ----------------
+        // UC5
         manageTrainFormation();
         displayTrainFormation();
+
+        // UC6
+        manageBogieCapacity();
+        displayBogieCapacity();
     }
 
-    // ================= UC1 =================
+    // UC1
     public static void displaySummary() {
         System.out.println("Initial Bogie Count: " + bogies.size());
     }
 
-    // ================= UC2 =================
+    // UC2
     public static void addBogies() {
         bogies.add("Sleeper");
         bogies.add("AC Chair");
@@ -78,23 +69,21 @@ public class TrainConsistManagementApp {
         }
     }
 
-    // ================= UC3 =================
+    // UC3
     public static void addBogieIds() {
         bogieIds.add("B1");
         bogieIds.add("B2");
         bogieIds.add("B3");
-        bogieIds.add("B1"); // duplicate ignored
-
-        System.out.println("\nBogie IDs (duplicates ignored): " + bogieIds);
+        bogieIds.add("B1");
+        System.out.println("\nBogie IDs: " + bogieIds);
     }
 
     public static void displayBogieIds() {
         System.out.println("Unique Bogie IDs: " + bogieIds);
     }
 
-    // ================= UC4 =================
+    // UC4
     public static void manageTrainConsist() {
-
         trainConsist.add("Engine");
         trainConsist.add("Sleeper");
         trainConsist.add("AC");
@@ -103,12 +92,9 @@ public class TrainConsistManagementApp {
 
         System.out.println("\nInitial Train Consist: " + trainConsist);
 
-        // Insert Pantry Car at position 2 (index 1)
         trainConsist.add(1, "Pantry Car");
-
         System.out.println("After adding Pantry Car: " + trainConsist);
 
-        // Remove first and last
         trainConsist.removeFirst();
         trainConsist.removeLast();
 
@@ -119,21 +105,33 @@ public class TrainConsistManagementApp {
         System.out.println("Final Train Consist: " + trainConsist);
     }
 
-    // ================= UC5 =================
+    // UC5
     public static void manageTrainFormation() {
-
         trainFormation.add("Engine");
         trainFormation.add("Sleeper");
         trainFormation.add("Cargo");
         trainFormation.add("Guard");
-
-        // Duplicate attempt
         trainFormation.add("Sleeper");
 
-        System.out.println("\nTrain Formation (order preserved, duplicates ignored): " + trainFormation);
+        System.out.println("\nTrain Formation: " + trainFormation);
     }
 
     public static void displayTrainFormation() {
         System.out.println("Final Train Formation: " + trainFormation);
+    }
+
+    // UC6
+    public static void manageBogieCapacity() {
+        bogieCapacityMap.put("Sleeper", 72);
+        bogieCapacityMap.put("AC Chair", 60);
+        bogieCapacityMap.put("First Class", 24);
+        System.out.println("\nBogie Capacity Mapping Added.");
+    }
+
+    public static void displayBogieCapacity() {
+        System.out.println("Bogie Capacity Details:");
+        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
     }
 }
